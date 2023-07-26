@@ -193,7 +193,7 @@ public class ControlGastosGUI extends JFrame {
                 writer.write(gasto.getDescripcion() + "," + gasto.getMonto() + "\n");
             }
             writer.write("");
-            writer.write("TOTAL: "+total);
+            writer.write("TOTAL: "+","+total);
             JOptionPane.showMessageDialog(ControlGastosGUI.this,
                     "Datos exportados correctamente a " + rutaArchivo, "Exportación exitosa", JOptionPane.INFORMATION_MESSAGE);
         } catch (IOException ex) {
