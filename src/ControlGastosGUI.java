@@ -4,12 +4,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+
 class Gasto {
-    private String descripcion;
-    private double monto;
+    private final String descripcion;
+    private final double monto;
 
     public Gasto(String descripcion, double monto) {
         this.descripcion = descripcion;
@@ -31,9 +32,9 @@ class Gasto {
 }
 
 public class ControlGastosGUI extends JFrame {
-    private ArrayList<Gasto> listaGastos;
-    private DefaultListModel<Gasto> gastosListModel;
-    private JLabel totalLabel;
+    private final ArrayList<Gasto> listaGastos;
+    private final DefaultListModel<Gasto> gastosListModel;
+    private final JLabel totalLabel;
 
     public ControlGastosGUI() {
         listaGastos = new ArrayList<>();
@@ -177,6 +178,16 @@ public class ControlGastosGUI extends JFrame {
 
         setVisible(true);
     }
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                new ControlGastosGUI();
+            }
+        });
+    }
+
     private void exportarCSV(String rutaArchivo) {
         try (FileWriter writer = new FileWriter(rutaArchivo)) {
             // Escribir la fecha como un título
@@ -186,14 +197,14 @@ public class ControlGastosGUI extends JFrame {
             // Escribir el encabezado
             writer.write("DESCRIPCION,MONTO\n");
 
-            double total=0;
+            double total = 0;
             // Escribir los datos de los gastos
             for (Gasto gasto : listaGastos) {
                 total += gasto.getMonto();
                 writer.write(gasto.getDescripcion() + "," + gasto.getMonto() + "\n");
             }
             writer.write("");
-            writer.write("TOTAL: "+","+total);
+            writer.write("TOTAL: " + "," + total);
             JOptionPane.showMessageDialog(ControlGastosGUI.this,
                     "Datos exportados correctamente a " + rutaArchivo, "Exportación exitosa", JOptionPane.INFORMATION_MESSAGE);
         } catch (IOException ex) {
@@ -208,16 +219,5 @@ public class ControlGastosGUI extends JFrame {
             total += gasto.getMonto();
         }
         totalLabel.setText("Total de gastos: $" + String.format("%.2f", total));
-    }
-
-
-
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                new ControlGastosGUI();
-            }
-        });
     }
 }
