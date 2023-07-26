@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="Gasto:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/Gasto_jar</output-path>
+    <root id="archive" name="Gasto.jar">
+      <element id="module-output" name="Gasto" />
+    </root>
+  </artifact>
+</component>
