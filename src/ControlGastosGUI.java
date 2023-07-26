@@ -5,7 +5,8 @@ import java.awt.event.ActionListener;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-
+import java.text.SimpleDateFormat;
+import java.util.Date;
 class Gasto {
     private String descripcion;
     private double monto;
@@ -178,14 +179,21 @@ public class ControlGastosGUI extends JFrame {
     }
     private void exportarCSV(String rutaArchivo) {
         try (FileWriter writer = new FileWriter(rutaArchivo)) {
+            // Escribir la fecha como un título
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            String fechaTitulo = "Fecha (" + dateFormat.format(new Date()) + ")";
+            writer.write(fechaTitulo + "\n");
             // Escribir el encabezado
-            writer.write("Descripción,Monto\n");
+            writer.write("DESCRIPCION,MONTO\n");
 
+            double total=0;
             // Escribir los datos de los gastos
             for (Gasto gasto : listaGastos) {
+                total += gasto.getMonto();
                 writer.write(gasto.getDescripcion() + "," + gasto.getMonto() + "\n");
             }
-
+            writer.write("");
+            writer.write("TOTAL: "+total);
             JOptionPane.showMessageDialog(ControlGastosGUI.this,
                     "Datos exportados correctamente a " + rutaArchivo, "Exportación exitosa", JOptionPane.INFORMATION_MESSAGE);
         } catch (IOException ex) {
