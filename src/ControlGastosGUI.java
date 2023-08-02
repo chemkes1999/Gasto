@@ -8,28 +8,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-class Gasto {
-    private final String descripcion;
-    private final double monto;
-
-    public Gasto(String descripcion, double monto) {
-        this.descripcion = descripcion;
-        this.monto = monto;
-    }
-
-    public String getDescripcion() {
-        return descripcion;
-    }
-
-    public double getMonto() {
-        return monto;
-    }
-
-    @Override
-    public String toString() {
-        return "- Descripción: " + descripcion + ", Monto: $" + monto;
-    }
-}
 
 public class ControlGastosGUI extends JFrame {
     private final ArrayList<Gasto> listaGastos;
@@ -177,15 +155,6 @@ public class ControlGastosGUI extends JFrame {
         add(totalPanel, BorderLayout.SOUTH);
 
         setVisible(true);
-    }
-
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                new ControlGastosGUI();
-            }
-        });
     }
 
     private void exportarCSV(String rutaArchivo) {
