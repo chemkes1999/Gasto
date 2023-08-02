@@ -1,7 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -13,6 +12,7 @@ public class ControlGastosGUI extends JFrame {
     private final ArrayList<Gasto> listaGastos;
     private final DefaultListModel<Gasto> gastosListModel;
     private final JLabel totalLabel;
+    Color originalButtonColor = new Color(195, 195, 195);
 
     public ControlGastosGUI() {
         listaGastos = new ArrayList<>();
@@ -59,24 +59,21 @@ public class ControlGastosGUI extends JFrame {
 
         gbc.gridx = 0;
         gbc.gridy = 2;
-        gbc.gridwidth = 3;
+        gbc.gridwidth = 1; // Reducir el ancho para que cada botón ocupe una columna
         gbc.fill = GridBagConstraints.HORIZONTAL;
         JButton agregarButton = new JButton("Agregar");
         formularioPanel.add(agregarButton, gbc);
 
-        gbc.gridx = 0;
-        gbc.gridy = 3;
-        gbc.gridwidth = 3;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.gridx = 1; // Mover el siguiente botón a la columna 1
+        gbc.gridy = 2;
         JButton eliminarButton = new JButton("Eliminar");
         formularioPanel.add(eliminarButton, gbc);
 
-        gbc.gridx = 0;
-        gbc.gridy = 4;
-        gbc.gridwidth = 3;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.gridx = 2; // Mover el último botón a la columna 2
+        gbc.gridy = 2;
         JButton exportarCSVButton = new JButton("Exportar a CSV");
         formularioPanel.add(exportarCSVButton, gbc);
+
 
         // List to display expenses
         JList<Gasto> gastosList = new JList<>(gastosListModel);
@@ -120,8 +117,8 @@ public class ControlGastosGUI extends JFrame {
                 }
             }
         });
-        agregarButton.setBackground(new Color(0, 150, 0)); // Set background color to green
-        agregarButton.setForeground(Color.WHITE); // Set text color to white
+        agregarButton.setBackground(originalButtonColor); // Set background color to green
+        agregarButton.setForeground(Color.BLACK); // Set text color to white
 
         // Acción para el botón "Eliminar"
         eliminarButton.addActionListener(new ActionListener() {
@@ -138,8 +135,8 @@ public class ControlGastosGUI extends JFrame {
                 }
             }
         });
-        eliminarButton.setBackground(new Color(150, 0, 0)); // Set background color to red
-        eliminarButton.setForeground(Color.WHITE); // Set text color to white
+        eliminarButton.setBackground(originalButtonColor); // Set background color to red
+        eliminarButton.setForeground(Color.BLACK); // Set text color to white
         exportarCSVButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -156,12 +153,85 @@ public class ControlGastosGUI extends JFrame {
                 }
             }
         });
+        exportarCSVButton.setBackground(originalButtonColor); // Set background color to blue
+        exportarCSVButton.setForeground(Color.BLACK); // Set text color to black
+
         // Configuración del contenido principal
         setLayout(new BorderLayout());
         add(formularioPanel, BorderLayout.NORTH);
         add(scrollPane, BorderLayout.CENTER);
         add(totalPanel, BorderLayout.SOUTH);
 
+
+        // Animación para resaltar los campos de entrada
+        Color originalColor = new Color(255, 239, 206);
+        Color highlightColor = new Color(255, 255, 153); // Amarillo claro
+
+        descripcionField.addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                formularioPanel.setBackground(highlightColor);
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                formularioPanel.setBackground(originalColor);
+            }
+        });
+
+        montoField.addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                formularioPanel.setBackground(highlightColor);
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                formularioPanel.setBackground(originalColor);
+            }
+        });
+
+        // Animación para resaltar los botones
+        Color originalButtonColor = new Color(195, 195, 195);
+        Color addButtonColor = new Color(0, 200, 0); // Verde más claro
+        Color deleteButtonColor = new Color(200, 60, 0); // Verde más claro
+        Color exportButtonColor = new Color(0, 178, 255); // Verde más claro
+
+        agregarButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                agregarButton.setBackground(addButtonColor);
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                agregarButton.setBackground(originalButtonColor);
+            }
+        });
+
+        eliminarButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                eliminarButton.setBackground(deleteButtonColor);
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                eliminarButton.setBackground(originalButtonColor);
+            }
+        });
+
+        exportarCSVButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                exportarCSVButton.setBackground(exportButtonColor);
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                exportarCSVButton.setBackground(originalButtonColor);
+            }
+        });
         setVisible(true);
     }
 
