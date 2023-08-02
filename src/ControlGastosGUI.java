@@ -23,10 +23,12 @@ public class ControlGastosGUI extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(800, 800);
         setLocationRelativeTo(null);
+        getContentPane().setBackground(new Color(229, 45, 45)); // Set background color to light gray
 
         // Panel para el formulario de agregar gasto
         JPanel formularioPanel = new JPanel();
         formularioPanel.setLayout(new GridBagLayout());
+        formularioPanel.setBackground(new Color(255, 239, 206)); // Set background color to white
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(5, 5, 5, 5);
 
@@ -76,10 +78,13 @@ public class ControlGastosGUI extends JFrame {
         JButton exportarCSVButton = new JButton("Exportar a CSV");
         formularioPanel.add(exportarCSVButton, gbc);
 
-        // Lista para mostrar los gastos
+        // List to display expenses
         JList<Gasto> gastosList = new JList<>(gastosListModel);
-        JScrollPane scrollPane = new JScrollPane(gastosList);
+        gastosList.setBackground(new Color(200, 200, 255)); // Set background color to light blue
+        gastosList.setForeground(Color.BLACK); // Set text color to white
 
+        JScrollPane scrollPane = new JScrollPane(gastosList);
+        scrollPane.setBackground(new Color(200, 200, 255)); // Set background color to light blue
         // Panel para mostrar el total de gastos
         JPanel totalPanel = new JPanel();
         totalLabel = new JLabel("Total de gastos: $0.00");
@@ -115,6 +120,8 @@ public class ControlGastosGUI extends JFrame {
                 }
             }
         });
+        agregarButton.setBackground(new Color(0, 150, 0)); // Set background color to green
+        agregarButton.setForeground(Color.WHITE); // Set text color to white
 
         // Acción para el botón "Eliminar"
         eliminarButton.addActionListener(new ActionListener() {
@@ -131,7 +138,8 @@ public class ControlGastosGUI extends JFrame {
                 }
             }
         });
-
+        eliminarButton.setBackground(new Color(150, 0, 0)); // Set background color to red
+        eliminarButton.setForeground(Color.WHITE); // Set text color to white
         exportarCSVButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -188,5 +196,14 @@ public class ControlGastosGUI extends JFrame {
             total += gasto.getMonto();
         }
         totalLabel.setText("Total de gastos: $" + String.format("%.2f", total));
+    }
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                new ControlGastosGUI();
+            }
+        });
     }
 }
