@@ -12,6 +12,7 @@ public class ControlGastosGUI extends JFrame {
     private final ArrayList<Gasto> listaGastos;
     private final DefaultListModel<Gasto> gastosListModel;
     private final JLabel totalLabel;
+    private final JButton exportarCSVButton; // Declare exportarCSVButton as an instance variable
     Color originalButtonColor = new Color(195, 195, 195);
 
     public ControlGastosGUI() {
@@ -71,9 +72,10 @@ public class ControlGastosGUI extends JFrame {
 
         gbc.gridx = 2; // Mover el último botón a la columna 2
         gbc.gridy = 2;
-        JButton exportarCSVButton = new JButton("Exportar a CSV");
+        exportarCSVButton = new JButton("Exportar a CSV");
         formularioPanel.add(exportarCSVButton, gbc);
-
+        // Deshabilitar el botón "Exportar a CSV" inicialmente
+        exportarCSVButton.setEnabled(false);
 
         // List to display expenses
         JList<Gasto> gastosList = new JList<>(gastosListModel);
@@ -266,6 +268,9 @@ public class ControlGastosGUI extends JFrame {
             total += gasto.getMonto();
         }
         totalLabel.setText("Total de gastos: $" + String.format("%.2f", total));
+
+        // Deshabilitar el botón "Exportar a CSV" si no hay gastos en la lista
+        exportarCSVButton.setEnabled(!listaGastos.isEmpty());
     }
 
     public static void main(String[] args) {
