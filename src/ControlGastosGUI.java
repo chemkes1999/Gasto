@@ -97,8 +97,7 @@ public class ControlGastosGUI extends JFrame {
                 String montoStr = montoField.getText().trim();
 
                 if (descripcion.isEmpty() || montoStr.isEmpty()) {
-                    JOptionPane.showMessageDialog(ControlGastosGUI.this, "Debe completar todos los campos.",
-                            "Campos incompletos", JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(ControlGastosGUI.this, "Debe completar todos los campos.", "Campos incompletos", JOptionPane.WARNING_MESSAGE);
                     return;
                 }
 
@@ -114,8 +113,7 @@ public class ControlGastosGUI extends JFrame {
                     descripcionField.setText("");
                     montoField.setText("");
                 } catch (NumberFormatException ex) {
-                    JOptionPane.showMessageDialog(ControlGastosGUI.this, "El monto debe ser un número válido.",
-                            "Formato inválido", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(ControlGastosGUI.this, "El monto debe ser un número válido.", "Formato inválido", JOptionPane.ERROR_MESSAGE);
                 }
             }
         });
@@ -132,8 +130,7 @@ public class ControlGastosGUI extends JFrame {
                     gastosListModel.removeElementAt(indiceSeleccionado);
                     calcularTotalGastos();
                 } else {
-                    JOptionPane.showMessageDialog(ControlGastosGUI.this, "Seleccione un gasto de la lista para eliminar.",
-                            "Elemento no seleccionado", JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(ControlGastosGUI.this, "Seleccione un gasto de la lista para eliminar.", "Elemento no seleccionado", JOptionPane.WARNING_MESSAGE);
                 }
             }
         });
@@ -254,11 +251,9 @@ public class ControlGastosGUI extends JFrame {
             }
             writer.write("");
             writer.write("TOTAL: " + "," + total);
-            JOptionPane.showMessageDialog(ControlGastosGUI.this,
-                    "Datos exportados correctamente a " + rutaArchivo, "Exportación exitosa", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(ControlGastosGUI.this, "Datos exportados correctamente a " + rutaArchivo, "Exportación exitosa", JOptionPane.INFORMATION_MESSAGE);
         } catch (IOException ex) {
-            JOptionPane.showMessageDialog(ControlGastosGUI.this,
-                    "Error al exportar los datos.", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(ControlGastosGUI.this, "Error al exportar los datos.", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -271,14 +266,5 @@ public class ControlGastosGUI extends JFrame {
 
         // Deshabilitar el botón "Exportar a CSV" si no hay gastos en la lista
         exportarCSVButton.setEnabled(!listaGastos.isEmpty());
-    }
-
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                new ControlGastosGUI();
-            }
-        });
     }
 }
