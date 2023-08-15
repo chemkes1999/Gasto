@@ -16,10 +16,20 @@ public class ControlGastosGUI extends JFrame {
     Color originalButtonColor = new Color(195, 195, 195);
 
     public ControlGastosGUI() {
+        // Mostrar ventana de bienvenida
+        JOptionPane.showMessageDialog(null, "¡Bienvenido a la aplicación de Control de Gastos!", "Bienvenido", JOptionPane.INFORMATION_MESSAGE);
+        // Agregar WindowListener para mostrar mensaje al cerrar
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                mostrarMensajeDespedida();
+                dispose(); // Cerrar la ventana
+            }
+        });
         listaGastos = new ArrayList<>();
         gastosListModel = new DefaultListModel<>();
 
-// Configuración de la ventana principal
+        // Configuración de la ventana principal
         setTitle("Control de Gastos por Carlos Hemkes Mañueco - julio 2023");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(800, 800);
@@ -164,7 +174,7 @@ public class ControlGastosGUI extends JFrame {
 
         // Animación para resaltar los campos de entrada
         Color originalColor = new Color(255, 239, 206);
-        Color highlightColor = new Color(255, 255, 153); // Amarillo claro
+        Color highlightColor = new Color(255, 255, 153);
 
         descripcionField.addFocusListener(new FocusAdapter() {
             @Override
@@ -192,9 +202,9 @@ public class ControlGastosGUI extends JFrame {
 
         // Animación para resaltar los botones
         Color originalButtonColor = new Color(195, 195, 195);
-        Color addButtonColor = new Color(0, 200, 0); // Verde más claro
-        Color deleteButtonColor = new Color(200, 60, 0); // Verde más claro
-        Color exportButtonColor = new Color(0, 178, 255); // Verde más claro
+        Color addButtonColor = new Color(0, 200, 0);
+        Color deleteButtonColor = new Color(200, 60, 0);
+        Color exportButtonColor = new Color(0, 178, 255);
 
         agregarButton.addMouseListener(new MouseAdapter() {
             @Override
@@ -266,5 +276,8 @@ public class ControlGastosGUI extends JFrame {
 
         // Deshabilitar el botón "Exportar a CSV" si no hay gastos en la lista
         exportarCSVButton.setEnabled(!listaGastos.isEmpty());
+    }
+    private void mostrarMensajeDespedida() {
+        JOptionPane.showMessageDialog(null, "¡Gracias por usar la aplicación de Control de Gastos!\nHasta luego.", "Despedida", JOptionPane.INFORMATION_MESSAGE);
     }
 }
