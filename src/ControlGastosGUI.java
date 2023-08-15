@@ -277,6 +277,7 @@ public class ControlGastosGUI extends JFrame {
         // Deshabilitar el botón "Exportar a CSV" si no hay gastos en la lista
         exportarCSVButton.setEnabled(!listaGastos.isEmpty());
     }
+
     private void mostrarMensajeDespedida() {
         JOptionPane.showMessageDialog(null, "¡Gracias por usar la aplicación de Control de Gastos!\nHasta luego.", "Despedida", JOptionPane.INFORMATION_MESSAGE);
     }
