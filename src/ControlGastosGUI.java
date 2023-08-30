@@ -39,7 +39,7 @@ public class ControlGastosGUI extends JFrame {
 
         gbc.gridx = 1;
         gbc.gridy = 0;
-        gbc.gridwidth = 2;
+        gbc.gridwidth = 3;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         JTextField descripcionField = new JTextField();
         formularioPanel.add(descripcionField, gbc);
@@ -52,7 +52,7 @@ public class ControlGastosGUI extends JFrame {
 
         gbc.gridx = 1;
         gbc.gridy = 1;
-        gbc.gridwidth = 2;
+        gbc.gridwidth = 3;
         gbc.weightx = 1.0; // Ajusta el campo de entrada del monto para que se expanda horizontalmente
         gbc.fill = GridBagConstraints.HORIZONTAL;
         JTextField montoField = new JTextField();
@@ -77,6 +77,10 @@ public class ControlGastosGUI extends JFrame {
         // Deshabilitar el botón "Exportar a CSV" inicialmente
         exportarCSVButton.setEnabled(false);
 
+        gbc.gridx = 3; // Mover el último botón a la columna 2
+        gbc.gridy = 2;
+        JButton editarButton = new JButton("Editar");
+        formularioPanel.add(editarButton, gbc);
         // List to display expenses
         JList<Gasto> gastosList = new JList<>(gastosListModel);
         gastosList.setBackground(new Color(200, 200, 255)); // Set background color to light blue
@@ -154,7 +158,21 @@ public class ControlGastosGUI extends JFrame {
         });
         exportarCSVButton.setBackground(originalButtonColor); // Set background color to blue
         exportarCSVButton.setForeground(Color.BLACK); // Set text color to black
-
+        // Acción para el botón "Editar"
+        editarButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int indiceSeleccionado = gastosList.getSelectedIndex();
+                if (indiceSeleccionado != -1) {
+                    Gasto gastoSeleccionado = gastosListModel.getElementAt(indiceSeleccionado);
+                    descripcionField.setText(gastoSeleccionado.getDescripcion());
+                    montoField.setText(Double.toString(gastoSeleccionado.getMonto()));
+                    listaGastos.remove(indiceSeleccionado);
+                    gastosListModel.removeElementAt(indiceSeleccionado);
+                    calcularTotalGastos();
+                }
+            }
+        });
         // Configuración del contenido principal
         setLayout(new BorderLayout());
         add(formularioPanel, BorderLayout.NORTH);
