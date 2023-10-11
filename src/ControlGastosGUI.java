@@ -284,6 +284,7 @@ public class ControlGastosGUI extends JFrame {
         });
         setVisible(true);
     }
+
     private void importarCSV(String rutaArchivo) {
         try (BufferedReader reader = new BufferedReader(new FileReader(rutaArchivo))) {
             String linea;
