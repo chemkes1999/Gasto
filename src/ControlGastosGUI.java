@@ -1,6 +1,8 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -183,6 +185,27 @@ public class ControlGastosGUI extends JFrame {
                 }
             }
         });
+        JButton importarCSVButton = new JButton("Importar desde CSV");
+        gbc.gridx = 4; // Mover el botón a la columna 4
+        gbc.gridy = 2;
+        formularioPanel.add(importarCSVButton, gbc);
+
+        importarCSVButton.setBackground(originalButtonColor); // Set background color
+        importarCSVButton.setForeground(Color.BLACK); // Set text color
+
+        importarCSVButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JFileChooser fileChooser = new JFileChooser();
+                fileChooser.setDialogTitle("Seleccionar archivo CSV para importar");
+                int userSelection = fileChooser.showOpenDialog(ControlGastosGUI.this);
+
+                if (userSelection == JFileChooser.APPROVE_OPTION) {
+                    String filePath = fileChooser.getSelectedFile().getAbsolutePath();
+                    importarCSV(filePath);
+                }
+            }
+        });
         // Configuración del contenido principal
         setLayout(new BorderLayout());
         add(formularioPanel, BorderLayout.NORTH);
@@ -260,6 +283,33 @@ public class ControlGastosGUI extends JFrame {
             }
         });
         setVisible(true);
+    }
+    private void importarCSV(String rutaArchivo) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(rutaArchivo))) {
+            String linea;
+            while ((linea = reader.readLine()) != null) {
+                String[] campos = linea.split(",");
+                if (campos.length >= 2) {
+                    String descripcion = campos[0];
+                    String montoStr = campos[1];
+
+                    try {
+                        double monto = Double.parseDouble(montoStr);
+
+                        Gasto nuevoGasto = new Gasto(descripcion, monto);
+                        listaGastos.add(nuevoGasto);
+                        gastosListModel.addElement(nuevoGasto);
+
+                        calcularTotalGastos();
+                    } catch (NumberFormatException ex) {
+                        JOptionPane.showMessageDialog(ControlGastosGUI.this, "Error al procesar el archivo CSV. El monto debe ser un número válido.", "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                }
+            }
+            JOptionPane.showMessageDialog(ControlGastosGUI.this, "Datos importados correctamente desde " + rutaArchivo, "Importación exitosa", JOptionPane.INFORMATION_MESSAGE);
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(ControlGastosGUI.this, "Error al importar los datos desde el archivo CSV.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     private void exportarCSV(String rutaArchivo) {
