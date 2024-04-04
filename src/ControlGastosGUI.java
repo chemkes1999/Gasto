@@ -289,6 +289,9 @@ public class ControlGastosGUI extends JFrame {
         try (BufferedReader reader = new BufferedReader(new FileReader(rutaArchivo))) {
             String linea;
             while ((linea = reader.readLine()) != null) {
+                if (linea.startsWith("TOTAL")) {
+                    continue; // Saltar la línea que contiene el total
+                }
                 String[] campos = linea.split(",");
                 if (campos.length >= 2) {
                     String descripcion = campos[0];
@@ -329,7 +332,7 @@ public class ControlGastosGUI extends JFrame {
                 writer.write(gasto.getDescripcion() + "," + gasto.getMonto() + "\n");
             }
             writer.write("");
-            writer.write("TOTAL: " + "," + total);
+            writer.write("TOTAL " + "," + total);
             JOptionPane.showMessageDialog(ControlGastosGUI.this, "Datos exportados correctamente a " + rutaArchivo, "Exportación exitosa", JOptionPane.INFORMATION_MESSAGE);
         } catch (IOException ex) {
             JOptionPane.showMessageDialog(ControlGastosGUI.this, "Error al exportar los datos.", "Error", JOptionPane.ERROR_MESSAGE);
