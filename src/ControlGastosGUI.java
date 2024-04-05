@@ -9,7 +9,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-
 public class ControlGastosGUI extends JFrame {
     private final ArrayList<Gasto> listaGastos;
     private final DefaultListModel<Gasto> gastosListModel;
@@ -19,7 +18,8 @@ public class ControlGastosGUI extends JFrame {
 
     public ControlGastosGUI() {
         // Mostrar ventana de bienvenida
-        JOptionPane.showMessageDialog(null, "¡Bienvenido a la aplicación de Control de Gastos!", "Bienvenido", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(null, "¡Bienvenido a la aplicación de Control de Gastos!", "Bienvenido",
+                JOptionPane.INFORMATION_MESSAGE);
         // Agregar WindowListener para mostrar mensaje al cerrar
         addWindowListener(new WindowAdapter() {
             @Override
@@ -113,7 +113,8 @@ public class ControlGastosGUI extends JFrame {
                 String montoStr = montoField.getText().trim();
 
                 if (descripcion.isEmpty() || montoStr.isEmpty()) {
-                    JOptionPane.showMessageDialog(ControlGastosGUI.this, "Debe completar todos los campos.", "Campos incompletos", JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(ControlGastosGUI.this, "Debe completar todos los campos.",
+                            "Campos incompletos", JOptionPane.WARNING_MESSAGE);
                     return;
                 }
 
@@ -129,7 +130,8 @@ public class ControlGastosGUI extends JFrame {
                     descripcionField.setText("");
                     montoField.setText("");
                 } catch (NumberFormatException ex) {
-                    JOptionPane.showMessageDialog(ControlGastosGUI.this, "El monto debe ser un número válido.", "Formato inválido", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(ControlGastosGUI.this, "El monto debe ser un número válido.",
+                            "Formato inválido", JOptionPane.ERROR_MESSAGE);
                 }
             }
         });
@@ -146,7 +148,9 @@ public class ControlGastosGUI extends JFrame {
                     gastosListModel.removeElementAt(indiceSeleccionado);
                     calcularTotalGastos();
                 } else {
-                    JOptionPane.showMessageDialog(ControlGastosGUI.this, "Seleccione un gasto de la lista para eliminar.", "Elemento no seleccionado", JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(ControlGastosGUI.this,
+                            "Seleccione un gasto de la lista para eliminar.", "Elemento no seleccionado",
+                            JOptionPane.WARNING_MESSAGE);
                 }
             }
         });
@@ -211,7 +215,6 @@ public class ControlGastosGUI extends JFrame {
         add(formularioPanel, BorderLayout.NORTH);
         add(scrollPane, BorderLayout.CENTER);
         add(totalPanel, BorderLayout.SOUTH);
-
 
         // Animación para resaltar los campos de entrada
         Color originalColor = new Color(255, 239, 206);
@@ -306,13 +309,17 @@ public class ControlGastosGUI extends JFrame {
 
                         calcularTotalGastos();
                     } catch (NumberFormatException ex) {
-                        JOptionPane.showMessageDialog(ControlGastosGUI.this, "Error al procesar el archivo CSV. El monto debe ser un número válido.", "Error", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(ControlGastosGUI.this,
+                                "Error al procesar el archivo CSV. El monto debe ser un número válido.", "Error",
+                                JOptionPane.ERROR_MESSAGE);
                     }
                 }
             }
-            JOptionPane.showMessageDialog(ControlGastosGUI.this, "Datos importados correctamente desde " + rutaArchivo, "Importación exitosa", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(ControlGastosGUI.this, "Datos importados correctamente desde " + rutaArchivo,
+                    "Importación exitosa", JOptionPane.INFORMATION_MESSAGE);
         } catch (IOException ex) {
-            JOptionPane.showMessageDialog(ControlGastosGUI.this, "Error al importar los datos desde el archivo CSV.", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(ControlGastosGUI.this, "Error al importar los datos desde el archivo CSV.",
+                    "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -333,9 +340,11 @@ public class ControlGastosGUI extends JFrame {
             }
             writer.write("");
             writer.write("TOTAL " + "," + total);
-            JOptionPane.showMessageDialog(ControlGastosGUI.this, "Datos exportados correctamente a " + rutaArchivo, "Exportación exitosa", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(ControlGastosGUI.this, "Datos exportados correctamente a " + rutaArchivo,
+                    "Exportación exitosa", JOptionPane.INFORMATION_MESSAGE);
         } catch (IOException ex) {
-            JOptionPane.showMessageDialog(ControlGastosGUI.this, "Error al exportar los datos.", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(ControlGastosGUI.this, "Error al exportar los datos.", "Error",
+                    JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -351,6 +360,7 @@ public class ControlGastosGUI extends JFrame {
     }
 
     private void mostrarMensajeDespedida() {
-        JOptionPane.showMessageDialog(null, "¡Gracias por usar la aplicación de Control de Gastos!\nHasta luego.", "Despedida", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(null, "¡Gracias por usar la aplicación de Control de Gastos!\nHasta luego.",
+                "Despedida", JOptionPane.INFORMATION_MESSAGE);
     }
 }
