@@ -32,7 +32,7 @@ public class ControlGastosGUI extends JFrame {
         gastosListModel = new DefaultListModel<>();
 
         // Configuración de la ventana principal
-        setTitle("Control de Gastos por Carlos Hemkes Mañueco - julio 2023");
+        setTitle("Control de Gastos por Carlos Hemkes Mañueco - abril 2024");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(800, 800);
         setLocationRelativeTo(null);
@@ -51,7 +51,7 @@ public class ControlGastosGUI extends JFrame {
 
         gbc.gridx = 1;
         gbc.gridy = 0;
-        gbc.gridwidth = 3;
+        gbc.gridwidth = 4;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         JTextField descripcionField = new JTextField();
         formularioPanel.add(descripcionField, gbc);
@@ -64,7 +64,7 @@ public class ControlGastosGUI extends JFrame {
 
         gbc.gridx = 1;
         gbc.gridy = 1;
-        gbc.gridwidth = 3;
+        gbc.gridwidth = 4;
         gbc.weightx = 1.0; // Ajusta el campo de entrada del monto para que se expanda horizontalmente
         gbc.fill = GridBagConstraints.HORIZONTAL;
         JTextField montoField = new JTextField();
