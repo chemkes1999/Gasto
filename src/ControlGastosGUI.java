@@ -176,8 +176,8 @@ public class ControlGastosGUI extends JFrame {
                 int indiceSeleccionado = gastosList.getSelectedIndex();
                 if (indiceSeleccionado != -1) {
                     Gasto gastoSeleccionado = gastosListModel.getElementAt(indiceSeleccionado);
-                    descripcionField.setText(gastoSeleccionado.getDescripcion());
-                    montoField.setText(Double.toString(gastoSeleccionado.getMonto()));
+                    descripcionField.setText(gastoSeleccionado.descripcion());
+                    montoField.setText(Double.toString(gastoSeleccionado.monto()));
                     listaGastos.remove(indiceSeleccionado);
                     gastosListModel.removeElementAt(indiceSeleccionado);
                     calcularTotalGastos();
@@ -344,8 +344,8 @@ public class ControlGastosGUI extends JFrame {
             double total = 0;
             // Escribir los datos de los gastos
             for (Gasto gasto : listaGastos) {
-                total += gasto.getMonto();
-                writer.write(gasto.getDescripcion() + "," + gasto.getMonto() + "\n");
+                total += gasto.monto();
+                writer.write(gasto.descripcion() + "," + gasto.monto() + "\n");
             }
             writer.write("");
             writer.write("TOTAL " + "," + total);
@@ -358,7 +358,7 @@ public class ControlGastosGUI extends JFrame {
     private void calcularTotalGastos() {
         double total = 0;
         for (Gasto gasto : listaGastos) {
-            total += gasto.getMonto();
+            total += gasto.monto();
         }
         totalLabel.setText("Total de gastos: $" + String.format("%.2f", total));
 
