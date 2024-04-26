@@ -32,7 +32,7 @@ public class ControlGastosGUI extends JFrame {
         gastosListModel = new DefaultListModel<>();
 
         // Configuración de la ventana principal
-        setTitle("Control de Gastos por Carlos Hemkes Mañueco - abril 2024 - v-1.2.2");
+        setTitle("Control de Gastos desarrollado por Carlos Hemkes Mañueco - abril 2024 - v-1.2.3");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(800, 800);
         setLocationRelativeTo(null);
